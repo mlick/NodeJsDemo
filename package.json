@@ -16,7 +16,9 @@
     "serve-favicon": "~2.3.0",
     "serve-static": "^1.11.1",
     "mongoose": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "connect-multiparty": "latest",
+    "multiparty": "latest"
   },
   "description": "ws node js test",
   "main": "app_movies.js",

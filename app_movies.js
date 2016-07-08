@@ -30,6 +30,7 @@ app.use(serveStatic('bower_components'))
 
 
 app.use('/phone/user', require('./routes/users'))
+app.use('/file', require('./routes/files'))
 app.use('/phone', movies)
 
 
