@@ -22,7 +22,10 @@
   },
   "description": "ws node js test",
   "main": "app_movies.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "cheerio": "latest",
+    "request": "latest"
+  },
   "author": "",
   "license": "ISC"
 }

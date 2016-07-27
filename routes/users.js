@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var UserLoginModel = require('../models/user')
 
+var UserToken = require('../models/Token')
 
 router.post('/login', function (req, res) {
     var userName = req.body.name;//req.param('name')
@@ -25,7 +26,44 @@ router.post('/login', function (req, res) {
             }
             console.log(model.toString())
         }
-        res.send({"result": result, "message": messageInfo});
+        /**
+         * 登陆成功后
+         */
+        require('crypto').randomBytes(16, function (ex, buf) {
+            var token;
+            if (e) {
+                messageInfo = "未知错误"
+                result = -4;
+            } else {
+                token = buf.toString('hex');
+                UserToken.findUserId(model._id, function (err, userToken) {
+                    if (err) {
+                        messageInfo = "未知错误"
+                        result = -5;
+                    } else if (userToken == null) {
+                        new UserToken({
+                            user_id: model._id,
+                            token: token
+                        }).save(function (err, userToken) {
+                            if (err) {
+                                messageInfo = "未知错误"
+                                result = -6;
+                            }
+                        })
+                    } else {
+                        userToken.token = token
+                        userToken.update(function (err, userToken) {
+                            if (err) {
+                                messageInfo = "未知错误"
+                                result = -7;
+                            }
+                        })
+                    }
+                })
+                console.log(token);
+            }
+            res.send({"result": result, "message": messageInfo, "token": token});
+        });
     })
 
     //res.json({"result": 0, "message": "success"});
@@ -80,3 +118,31 @@ router.get("/info", function (req, res) {
 });
 
 module.exports = router;
+
+
+// 1 Y
+// 2 C
+// 3 Y
+// 4 C
+// 5 Y
+// 6 N
+// 7 C
+// 5
+// 5
+// 5
+
+
+// 1 Y
+// 2 Y
+// 3 Y
+// 4 Y
+// 5 O
+// 6 N
+// 7 N
+// 8 N
+// 9 Y
+// 10 Y
+// 11 Y
+// 12
+// 13
+// 14

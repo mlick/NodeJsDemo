@@ -40,7 +40,7 @@ MoviewSchema.statics = {
     fetch: function (cb) {
         return this.find({})
             .sort('meta.updateAt')
-            .exec(cb);
+            .exec(cb)
     },
     findById: function (id, cb) {
         return this.findOne({_id: id})

@@ -28,11 +28,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, 'public'))); //设置静态文件目录
 app.use(serveStatic('bower_components'))
 
-
-app.use('/phone/user', require('./routes/users'))
 app.use('/file', require('./routes/files'))
 app.use('/phone', movies)
-
+app.use('/phone/user', require('./routes/users'))
+app.use('/phone/token', require('./routes/token'))
 
 //var TestSchema = new mongoose.Schema({
 //    name: {type: String},

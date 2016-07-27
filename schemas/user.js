@@ -29,5 +29,4 @@ UserLoginSchemas.pre('save', function (next) {
     next();
 })
 
-
 module.exports = UserLoginSchemas
